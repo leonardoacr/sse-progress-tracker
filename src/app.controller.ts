@@ -1,12 +1,15 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Headers } from '@nestjs/common';
 import { AppService } from './app.service';
+import { _FAKE_TOKEN } from './_FAKE_TOKEN';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  get(@Headers() headers: Headers) {
+    // const token = headers['authorization'];
+    const token = _FAKE_TOKEN;
+    return this.appService.get(token);
   }
 }
